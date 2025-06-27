@@ -35,4 +35,4 @@ jobs:
         gh release create ${{ steps.get_version.outputs.VERSION }} \
           --title "Release ${{ steps.get_version.outputs.VERSION }}" \
           --notes "Automated build from commit ${{ github.sha }}" \
-          ./your-compiled-binary#your-compiled-binary
+          ./Main#Main
