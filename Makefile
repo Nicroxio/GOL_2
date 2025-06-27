@@ -1,6 +1,6 @@
-OBJS = main.cpp
+OBJS = main.c
 
-CC = g++
+CC = gcc
 
 COMPILER_FLAGS = -w
 

@@ -1,22 +1,26 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 // Copyright (c) 2025 Nicroxio. All Rights Reserved.
 // Game Of Life a rough re-crtation of my python version but in C/C++
 
 #define ROWS 10
 #define COLS 30
 
-struct Life {
-  bool alive = false;
-  bool boarder = false;
-  int neighbours = 0;
-};
+typedef struct {
+  bool alive;
+  bool boarder;
+  int neighbours;
+} Life;
 
 void printBoard(Life Board[ROWS][COLS]) {
   for (int row = 0; row < ROWS; row++) {
     for (int col = 0; col < COLS; col++) {
-      printf("%d", Board[row][col].alive);
+      if (Board[row][col].boarder == true) {
+        continue;
+      } else {
+        printf("%d", Board[row][col].alive);
+      }
     }
     printf("\n");
   }
@@ -29,9 +33,13 @@ bool isEdge(int row, int col) {
 void initBoard(Life Board[ROWS][COLS]) {
   for (int row = 0; row < ROWS; row++) {
     for (int col = 0; col < COLS; col++) {
-      Board[row][col].alive = true;
-      Board[row][col].neighbours = 0;
       Board[row][col].boarder = isEdge(row, col);
+      if (Board[row][col].boarder == true) {
+        Board[row][col].alive = false;
+      } else {
+        Board[row][col].alive = rand() % 2;
+      }
+      Board[row][col].neighbours = 0;
     }
   }
 }
