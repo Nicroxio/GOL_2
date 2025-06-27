@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 // Copyright (c) 2025 Nicroxio. All Rights Reserved.
 // Game Of Life a rough re-crtation of my python version but in C/C++
 
@@ -48,6 +49,12 @@ int counter(Life Board[ROWS][COLS]) {
   int vision[8][2] = {{0, 0}, {0, 0}, {0, 0}, {0, 0},
                       {0, 0}, {0, 0}, {0, 0}, {0, 0}};
   int count = 0;
+  Life Local[ROWS][COLS];
+  memcpy(Local, Board, sizeof(Life));
+  for (int row; row < ROWS; row++) {
+    for (int col; col < COLS; col++) {
+    }
+  }
 
   return count;
 }
