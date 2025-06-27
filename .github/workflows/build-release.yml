@@ -28,27 +28,11 @@ jobs:
       id: get_version
       run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Create Release with Assets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: Release ${{ steps.get_version.outputs.VERSION }}
-        body: |
-          Changes in this Release
-          - Automated build from commit ${{ github.sha }}
-          - Built using make
-        draft: false
-        prerelease: false
-        
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./your-compiled-binary  # Change this to your actual compiled file path
-        asset_name: your-compiled-binary    # Change this to your desired asset name
-        asset_content_type: application/octet-stream
+      run: |
+        gh release create ${{ steps.get_version.outputs.VERSION }} \
+          --title "Release ${{ steps.get_version.outputs.VERSION }}" \
+          --notes "Automated build from commit ${{ github.sha }}" \
+          ./your-compiled-binary#your-compiled-binary
